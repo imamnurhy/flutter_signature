@@ -63,7 +63,6 @@ class _SignatureState extends State<Signature> {
               minScale: 0.1,
               maxScale: 5.0,
               constrained: false,
-              transformationController: _transformationController,
               child: Stack(
                 children: [
                   // PDF
