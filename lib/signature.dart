@@ -3,7 +3,6 @@ library signature;
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'pdf_to_image.dart';
 
 class Signature extends StatefulWidget {
@@ -57,15 +56,13 @@ class _SignatureState extends State<Signature> {
     });
   }
 
-  void showPage(int page) {
-    Fluttertoast.showToast(
-      msg: "$page",
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.CENTER,
-      timeInSecForIosWeb: 1,
-      backgroundColor: Colors.red,
-      textColor: Colors.white,
-      fontSize: 16.0,
+  void _showToast(BuildContext context, int page) {
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        content: Text('Page $page'),
+        action: SnackBarAction(label: 'UNDO', onPressed: scaffold.hideCurrentSnackBar),
+      ),
     );
   }
 
@@ -133,7 +130,7 @@ class _SignatureState extends State<Signature> {
                 onPressed: () => (initPage > 1)
                     ? setState(() {
                         initPage--;
-                        showPage(initPage);
+                        _showToast(context, initPage);
                       })
                     : null,
               ),
@@ -146,7 +143,7 @@ class _SignatureState extends State<Signature> {
                 onPressed: () => (initPage < totalPage)
                     ? setState(() {
                         initPage++;
-                        showPage(initPage);
+                        _showToast(context, initPage);
                       })
                     : null,
               ),
