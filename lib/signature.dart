@@ -3,6 +3,7 @@ library signature;
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'pdf_to_image.dart';
 
 class Signature extends StatefulWidget {
@@ -54,6 +55,18 @@ class _SignatureState extends State<Signature> {
       totalPage = value['total_page'];
       return value;
     });
+  }
+
+  void showPage(int page) {
+    Fluttertoast.showToast(
+      msg: "$page",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.CENTER,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.red,
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
   }
 
   @override
@@ -117,7 +130,12 @@ class _SignatureState extends State<Signature> {
                   color: Colors.grey,
                 ),
                 iconSize: 25,
-                onPressed: () => (initPage > 1) ? setState(() => initPage--) : null,
+                onPressed: () => (initPage > 1)
+                    ? setState(() {
+                        initPage--;
+                        showPage(initPage);
+                      })
+                    : null,
               ),
               IconButton(
                 icon: const Icon(
@@ -125,7 +143,12 @@ class _SignatureState extends State<Signature> {
                   color: Colors.grey,
                 ),
                 iconSize: 25,
-                onPressed: () => (initPage < totalPage) ? setState(() => initPage++) : null,
+                onPressed: () => (initPage < totalPage)
+                    ? setState(() {
+                        initPage++;
+                        showPage(initPage);
+                      })
+                    : null,
               ),
             ],
           ),
