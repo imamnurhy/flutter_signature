@@ -48,49 +48,75 @@ class _SignatureState extends State<Signature> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<Map>(
-      future: _convertPdfToImage.convert(widget.fileUrl, 1),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        } else if (snapshot.connectionState == ConnectionState.done) {
-          return SizedBox(
-            height: snapshot.data!['height'],
-            width: snapshot.data!['width'],
-            child: InteractiveViewer(
-              minScale: 0.1,
-              maxScale: 5.0,
-              constrained: false,
-              child: Stack(
-                children: [
-                  // PDF
-                  Image.file(
-                    snapshot.data!['image'],
-                    fit: BoxFit.cover,
-                  ),
+    return Stack(
+      children: [
+        // Document Viewer
+        FutureBuilder<Map>(
+          future: _convertPdfToImage.convert(widget.fileUrl, 1),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (snapshot.connectionState == ConnectionState.done) {
+              return SizedBox(
+                height: snapshot.data!['height'],
+                width: snapshot.data!['width'],
+                child: InteractiveViewer(
+                  minScale: 0.1,
+                  maxScale: 5.0,
+                  constrained: false,
+                  child: Stack(
+                    children: [
+                      // PDF
+                      Image.file(
+                        snapshot.data!['image'],
+                        fit: BoxFit.cover,
+                      ),
 
-                  // Signature
-                  _SignatureBox(
-                    canvasHeight: snapshot.data!['height'],
-                    canvasWidth: snapshot.data!['width'],
-                    boxHeight: widget.boxHeight,
-                    boxWidth: widget.boxWidth,
-                    child: widget.child,
-                    boxStream: widget.stream,
-                    pageNumber: 1,
+                      // Signature
+                      _SignatureBox(
+                        canvasHeight: snapshot.data!['height'],
+                        canvasWidth: snapshot.data!['width'],
+                        boxHeight: widget.boxHeight,
+                        boxWidth: widget.boxWidth,
+                        child: widget.child,
+                        boxStream: widget.stream,
+                        pageNumber: 1,
+                      ),
+                    ],
                   ),
-                ],
+                ),
+              );
+            } else {
+              return const Center(
+                child: Text('No Document'),
+              );
+            }
+          },
+        ),
+
+        // Button move page
+        Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              IconButton(
+                icon: const Icon(Icons.arrow_back),
+                iconSize: 25,
+                onPressed: () {},
               ),
-            ),
-          );
-        } else {
-          return const Center(
-            child: Text('No Document'),
-          );
-        }
-      },
+              IconButton(
+                icon: const Icon(Icons.arrow_forward),
+                iconSize: 25,
+                onPressed: () {},
+              ),
+            ],
+          ),
+        ),
+
+        //--
+      ],
     );
   }
 }
