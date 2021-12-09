@@ -117,7 +117,7 @@ class _SignatureState extends State<Signature> {
                   color: Colors.grey,
                 ),
                 iconSize: 25,
-                onPressed: () {},
+                onPressed: () => (initPage > 1) ? setState(() => initPage--) : null,
               ),
               IconButton(
                 icon: const Icon(
@@ -125,7 +125,7 @@ class _SignatureState extends State<Signature> {
                   color: Colors.grey,
                 ),
                 iconSize: 25,
-                onPressed: () {},
+                onPressed: () => (initPage < totalPage) ? setState(() => initPage++) : null,
               ),
             ],
           ),
