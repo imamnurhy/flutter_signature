@@ -62,7 +62,7 @@ class _SignatureState extends State<Signature> {
       children: [
         // Document Viewer
         FutureBuilder<Map>(
-          future: _convertPdf(widget.fileUrl, 1),
+          future: _convertPdf(widget.fileUrl, initPage),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
