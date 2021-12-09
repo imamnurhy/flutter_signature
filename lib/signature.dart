@@ -61,7 +61,6 @@ class _SignatureState extends State<Signature> {
     scaffold.showSnackBar(
       SnackBar(
         content: Text('Page $page'),
-        action: SnackBarAction(label: 'UNDO', onPressed: scaffold.hideCurrentSnackBar),
       ),
     );
   }
