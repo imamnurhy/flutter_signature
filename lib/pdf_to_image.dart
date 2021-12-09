@@ -10,7 +10,7 @@ import 'package:pdf_render/pdf_render.dart';
 import 'package:image/image.dart' as imglib;
 
 class PdfToImage {
-  Future<Map<String, dynamic>> convert(String url, int pageNumber) async {
+  Future<Map> convert(String url, int pageNumber) async {
     final ByteData bytes = await NetworkAssetBundle(Uri.parse(url)).load(url);
     final Uint8List list = bytes.buffer.asUint8List();
     List<imglib.Image> _images = [];
