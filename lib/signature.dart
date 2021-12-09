@@ -28,6 +28,9 @@ class Signature extends StatefulWidget {
 }
 
 class _SignatureState extends State<Signature> {
+  int initPage = 1;
+  int totalPage = 0;
+
   // Controller
   final TransformationController _transformationController = TransformationController();
 
@@ -46,13 +49,20 @@ class _SignatureState extends State<Signature> {
     super.dispose();
   }
 
+  Future<Map> _convertPdf(String url, page) {
+    return _convertPdfToImage.convert(url, page).then((value) {
+      totalPage = value['total_page'];
+      return value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         // Document Viewer
         FutureBuilder<Map>(
-          future: _convertPdfToImage.convert(widget.fileUrl, 1),
+          future: _convertPdf(widget.fileUrl, 1),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
