@@ -102,12 +102,18 @@ class _SignatureState extends State<Signature> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconButton(
-                icon: const Icon(Icons.arrow_back),
+                icon: const Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.grey,
+                ),
                 iconSize: 25,
                 onPressed: () {},
               ),
               IconButton(
-                icon: const Icon(Icons.arrow_forward),
+                icon: const Icon(
+                  Icons.arrow_forward_ios,
+                  color: Colors.grey,
+                ),
                 iconSize: 25,
                 onPressed: () {},
               ),
