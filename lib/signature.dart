@@ -15,12 +15,12 @@ class Signature extends StatefulWidget {
   final String fileUrl;
 
   const Signature({
-    Key? key,
+    Key key,
     this.boxHeight = 40,
     this.boxWidth = 160,
-    required this.stream,
-    required this.child,
-    required this.fileUrl,
+    @required this.stream,
+    @required this.child,
+    @required this.fileUrl,
   }) : super(key: key);
 
   @override
@@ -79,8 +79,8 @@ class _SignatureState extends State<Signature> {
               );
             } else if (snapshot.connectionState == ConnectionState.done) {
               return SizedBox(
-                height: snapshot.data!['height'],
-                width: snapshot.data!['width'],
+                height: snapshot.data['height'],
+                width: snapshot.data['width'],
                 child: InteractiveViewer(
                   minScale: 0.1,
                   maxScale: 5.0,
@@ -89,14 +89,14 @@ class _SignatureState extends State<Signature> {
                     children: [
                       // PDF
                       Image.file(
-                        snapshot.data!['image'],
+                        snapshot.data['image'],
                         fit: BoxFit.cover,
                       ),
 
                       // Signature
                       _SignatureBox(
-                        canvasHeight: snapshot.data!['height'],
-                        canvasWidth: snapshot.data!['width'],
+                        canvasHeight: snapshot.data['height'],
+                        canvasWidth: snapshot.data['width'],
                         boxHeight: widget.boxHeight,
                         boxWidth: widget.boxWidth,
                         child: widget.child,
@@ -172,14 +172,14 @@ class _SignatureBox extends StatefulWidget {
   final Widget child;
 
   const _SignatureBox({
-    Key? key,
-    required this.canvasHeight,
-    required this.canvasWidth,
+    Key key,
+    @required this.canvasHeight,
+    @required this.canvasWidth,
     this.boxHeight = 160,
     this.boxWidth = 40,
-    required this.boxStream,
-    required this.child,
-    required this.pageNumber,
+    @required this.boxStream,
+    @required this.child,
+    @required this.pageNumber,
   }) : super(key: key);
 
   @override

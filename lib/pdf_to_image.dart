@@ -49,7 +49,7 @@ class PdfToImage {
     final String fileName = nameWithoutExtentions + '$pageNumber' + '.jpg';
 
     final documentDirectory = await getExternalStorageDirectory();
-    File imgFile = File('${documentDirectory!.path}/' + fileName);
+    File imgFile = File('${documentDirectory.path}/' + fileName);
     File(imgFile.path).writeAsBytesSync(imglib.encodeJpg(mergedImage));
 
     return {
